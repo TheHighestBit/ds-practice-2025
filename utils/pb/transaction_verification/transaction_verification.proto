@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package transaction_verification;
+
+service TransactionVerification {
+    rpc VerifyTransaction (VerifyTransactionRequest) returns (VerifyTransactionResponse);
+}
+
+message VerifyTransactionRequest {
+    UserInfo user = 1;
+    CreditCardInfo credit_card = 2;
+    BillingAddress billing_address = 3;
+    repeated Item items = 4; // List of books that the user bought
+    bool gift_wrapping = 5;
+    bool terms_accepted = 6;
+}
+
+message UserInfo {
+    string name = 1;
+    string contact = 2;
+}
+
+message CreditCardInfo {
+    string card_number = 1;
+    string expiration_date = 2;
+    string cvv = 3;
+}
+
+message BillingAddress {
+    string street = 1;
+    string city = 2;
+    string state = 3;
+    string zip = 4;
+    string country = 5;
+}
+
+// Represents a single book in our case
+message Item {
+    string name = 1;
+    int32 quantity = 3;
+}
+
+message VerifyTransactionResponse {
+    bool is_verified = 1;
+}
